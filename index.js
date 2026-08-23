@@ -39,24 +39,18 @@ if (!GUILD_ID) {
 /* =========================================================
    AUTHORIZED USERS
    =========================================================
-   
-   Put the Discord USER IDs of people who are allowed
-   to use /message here.
 
-   Example:
+   Put Discord USER IDs here.
 
-   const AUTHORIZED_USERS = [
-       "123456789012345678",
-       "987654321098765432"
-   ];
+   IMPORTANT:
+   Keep the IDs inside quotation marks because Discord
+   provides user IDs as strings.
 
-   Do NOT use usernames here.
-   Use Discord user IDs.
 */
 
 const AUTHORIZED_USERS = [
-    1301633445696372797,
-    1384608202381070336,
+    "1301633445696372797",
+    "1384608202381070336"
 ];
 
 
@@ -178,11 +172,7 @@ client.on("interactionCreate", async interaction => {
            PERMISSION CHECK
            ================================================= */
 
-        if (
-            !AUTHORIZED_USERS.includes(
-                interaction.user.id
-            )
-        ) {
+        if (!AUTHORIZED_USERS.includes(interaction.user.id)) {
 
             await interaction.reply({
                 content:
@@ -269,7 +259,6 @@ client.on("interactionCreate", async interaction => {
                 `Failed to DM ${user.tag}:`,
                 error
             );
-
 
             await interaction.reply({
 
