@@ -1,0 +1,508 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Glyde Control Panel</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #111318;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: #1b1e25;
+            border: 1px solid #30343d;
+            border-radius: 14px;
+            padding: 28px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo {
+            font-size: 42px;
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #9da3ae;
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 14px;
+            color: #7ee787;
+            font-size: 14px;
+        }
+
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #3fb950;
+        }
+
+        .section {
+            margin-top: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #d7dae0;
+        }
+
+        select,
+        textarea {
+            width: 100%;
+            background: #111318;
+            color: white;
+            border: 1px solid #3a3f49;
+            border-radius: 8px;
+            padding: 12px;
+            outline: none;
+            transition: border 0.15s;
+        }
+
+        select:focus,
+        textarea:focus {
+            border-color: #5865f2;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .preview {
+            margin-top: 22px;
+            background: #111318;
+            border: 1px solid #30343d;
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .preview-title {
+            font-size: 13px;
+            color: #9da3ae;
+            margin-bottom: 12px;
+        }
+
+        .discord-message {
+            border-left: 4px solid #5865f2;
+            background: #1f2229;
+            padding: 14px;
+            border-radius: 5px;
+        }
+
+        .discord-header {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .discord-content {
+            color: #d7dae0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .send-button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #5865f2;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.1s;
+        }
+
+        .send-button:hover {
+            background: #4752c4;
+        }
+
+        .send-button:active {
+            transform: scale(0.99);
+        }
+
+        .send-button:disabled {
+            background: #3b3f49;
+            color: #858b96;
+            cursor: not-allowed;
+        }
+
+        .result {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .result.success {
+            display: block;
+            background: rgba(46, 160, 67, 0.15);
+            border: 1px solid #2ea043;
+            color: #7ee787;
+        }
+
+        .result.error {
+            display: block;
+            background: rgba(248, 81, 73, 0.15);
+            border: 1px solid #f85149;
+            color: #ffaba8;
+        }
+
+        .footer {
+            text-align: center;
+            color: #666d78;
+            font-size: 12px;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div class="logo">🤖</div>
+
+            <div class="title">
+                Glyde
+            </div>
+
+            <div class="subtitle">
+                Discord Server Control Panel
+            </div>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                Glyde Online
+            </div>
+        </div>
+
+
+        <!-- USER -->
+
+        <div class="section">
+
+            <label for="user">
+                Discord User
+            </label>
+
+            <select id="user">
+
+                <option value="">
+                    Select a user...
+                </option>
+
+                <!--
+                    These are example users.
+
+                    Later, Glyde can automatically
+                    load the real members of your server.
+                -->
+
+                <option value="123456789">
+                    Alex
+                </option>
+
+                <option value="987654321">
+                    ExampleUser
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div class="section">
+
+            <label for="message">
+                Message
+            </label>
+
+            <textarea
+                id="message"
+                placeholder="Write the message you want Glyde to send..."
+                maxlength="2000"
+            ></textarea>
+
+        </div>
+
+
+        <!-- PREVIEW -->
+
+        <div class="preview">
+
+            <div class="preview-title">
+                Message Preview
+            </div>
+
+            <div class="discord-message">
+
+                <div class="discord-header">
+                    📨 Message from the Server
+                </div>
+
+                <div
+                    class="discord-content"
+                    id="preview"
+                >
+                    Your message will appear here...
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SEND -->
+
+        <button
+            class="send-button"
+            id="sendButton"
+            onclick="sendMessage()"
+        >
+            📨 Send Message
+        </button>
+
+
+        <div
+            class="result"
+            id="result"
+        ></div>
+
+
+        <div class="footer">
+            Glyde • Server Communications
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const messageBox =
+            document.getElementById("message");
+
+        const preview =
+            document.getElementById("preview");
+
+        const result =
+            document.getElementById("result");
+
+        const sendButton =
+            document.getElementById("sendButton");
+
+
+        /*
+         * LIVE MESSAGE PREVIEW
+         */
+
+        messageBox.addEventListener("input", function () {
+
+            if (messageBox.value.trim() === "") {
+
+                preview.textContent =
+                    "Your message will appear here...";
+
+            } else {
+
+                preview.textContent =
+                    messageBox.value;
+
+            }
+
+        });
+
+
+        /*
+         * SEND MESSAGE
+         *
+         * This currently only validates the form.
+         *
+         * Later this will send the request
+         * to Glyde's backend.
+         */
+
+        async function sendMessage() {
+
+            const user =
+                document.getElementById("user").value;
+
+            const message =
+                messageBox.value.trim();
+
+
+            /*
+             * Validate user
+             */
+
+            if (!user) {
+
+                showResult(
+                    "Please select a Discord user.",
+                    false
+                );
+
+                return;
+            }
+
+
+            /*
+             * Validate message
+             */
+
+            if (!message) {
+
+                showResult(
+                    "Please enter a message.",
+                    false
+                );
+
+                return;
+            }
+
+
+            /*
+             * Disable button while sending
+             */
+
+            sendButton.disabled = true;
+
+            sendButton.textContent =
+                "Sending...";
+
+
+            try {
+
+                /*
+                 * THIS is where we will connect
+                 * the website to Glyde.
+                 *
+                 * Example later:
+                 *
+                 * const response = await fetch(
+                 *     "YOUR-GLYDE-BACKEND/message",
+                 *     {
+                 *         method: "POST",
+                 *         headers: {
+                 *             "Content-Type":
+                 *                 "application/json"
+                 *         },
+                 *         body: JSON.stringify({
+                 *             user: user,
+                 *             message: message
+                 *         })
+                 *     }
+                 * );
+                 */
+
+
+                /*
+                 * Temporary simulation
+                 */
+
+                await new Promise(
+                    resolve => setTimeout(resolve, 700)
+                );
+
+
+                showResult(
+                    "Message ready to be sent by Glyde!",
+                    true
+                );
+
+
+                messageBox.value = "";
+
+                preview.textContent =
+                    "Your message will appear here...";
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                showResult(
+                    "Something went wrong.",
+                    false
+                );
+
+            }
+
+
+            sendButton.disabled = false;
+
+            sendButton.textContent =
+                "📨 Send Message";
+        }
+
+
+        /*
+         * SHOW RESULT
+         */
+
+        function showResult(text, success) {
+
+            result.textContent = text;
+
+            result.className =
+                "result " +
+                (success ? "success" : "error");
+
+        }
+
+    </script>
+
+</body>
+</html>
+```
